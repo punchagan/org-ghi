@@ -270,6 +270,7 @@ result and updates the TODO list."
       (with-temp-buffer
         (save-match-data
           (insert heading)
+          (goto-char (point-min))
           (if (re-search-forward org-any-link-re nil t)
               (progn
                 (setq title (match-string-no-properties 4))
@@ -463,7 +464,7 @@ result and updates the TODO list."
 (defun org-ghi-sync-all (repo)
   "Update all issues, irrespective of status."
   (interactive "MWhich repo? ")
-  (org-ghi-list repo "closed")
+  (org-ghi-list repo "open")
   (org-ghi-list repo "closed")
   (save-buffer)
   (message "Sync-ed all issues for %s" repo))
