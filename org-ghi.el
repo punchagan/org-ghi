@@ -446,7 +446,10 @@ result and updates the TODO list."
   "Pushes a TODO item as an issue. Should have a property REPO."
   (interactive)
   (let ((issue (org-ghi-entry-to-alist))
-        (repo (org-entry-get (point) "REPO")))
+        (repo (org-entry-get (point) "REPO"))
+        (number (org-entry-get (point) "GH_NUMBER")))
+    (when number
+      (error "Issue already has a GH_NUMBER. Does it already exist?"))
     (org-ghi-replace-issue 
      (with-current-buffer (github-request 
                          "POST" 
