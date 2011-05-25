@@ -122,6 +122,9 @@ should both be strings."
 (defvar org-ghi-issue-level 1
   "Headline level for issues")
 
+(defvar org-ghi-interesting-repos '()
+  "Repos you are interested in; used only for autocompletion, now.")
+
 (defun org-ghi-list (repo &optional status)
   "Displays a list of all of the current user's gists in a new buffer."
   (message "Retrieving list of issues for %s..." repo)
@@ -464,9 +467,14 @@ result and updates the TODO list."
                 (org-ghi-request-status-success-p)))
        (org-ghi-get-json-as-list)))))
 
-(defun org-ghi-sync-all (repo)
+(defun org-ghi-sync-all (&optional repo)
   "Update all issues, irrespective of status."
-  (interactive "MWhich repo? ")
+  (interactive)
+  (unless repo
+    (setq repo (completing-read "Repository: "
+                                org-ghi-interesting-repos
+                                nil nil
+                                (concat github-user "/"))))
   (org-ghi-list repo "open")
   (org-ghi-list repo "closed")
   (save-buffer)
