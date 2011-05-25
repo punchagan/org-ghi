@@ -23,6 +23,20 @@
     2. ~org-ghi~ may not work with old versions of org-mode. 
 
 * Usage
+
+  Set the variable ~org-ghi-org-file~ to the file you want to use.
+  The default is to use a ~github.org~ file in your ~org-directory~. 
+
+  The variable ~org-ghi-file-under-repo-headline~ turns on or off,
+  whether to file issues under a headline with the Repository name.  
+
+  ~org-ghi-interesting-repos~ provides completion for the
+  ~org-ghi-sync-all~ command. Set it to a list of repositories, that
+  you want to use.  *NOTE*: This doesn't restrict the Repos that you
+  use with ~org-ghi~. For instance, 
+
+  : (setq org-ghi-interesting-repos '("punchagan/org-ghi" "eschulte/babel-dev"))
+
   ~org-ghi-sync-all~ is your starting point into using ~org-ghi~.  It
   will fetch all the issues and add them to your chosen file, as TODO
   items.  If the issue has a milestone, the due date of the milestone
