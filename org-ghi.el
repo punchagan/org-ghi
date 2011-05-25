@@ -205,7 +205,7 @@ result and updates the TODO list."
   "Returns whether POS is at a issue."
   (save-excursion
     (org-back-to-heading)
-    (if (org-entry-get (point) "GH_STATE") t nil)))
+    (if (org-entry-get (point) "REPO") t nil)))
 
 (defun org-ghi-insert-issue (issue)
   "Inserts a new issue, at location based on file-under variables."
