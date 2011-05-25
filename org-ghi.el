@@ -364,16 +364,18 @@ result and updates the TODO list."
                                  (let ((json-array-type 'vector)
                                        (json-key-type 'string))
                                    (json-encode local)))
-             (when (org-ghi-request-status-200-p)
+             (when (org-ghi-request-status-success-p)
                  (error "ERROR -- %s. Can't Update" 
-                        (org-ghi-request-status-200-p)))
+                        (org-ghi-request-status-success-p)))
              (org-ghi-get-json-as-list)))
           (message "Updates pushed!"))))))
 
-(defun org-ghi-request-status-200-p ()
+(defun org-ghi-request-status-success-p ()
   (goto-char (point-min))
   (let ((fl (buffer-substring (line-beginning-position) (line-end-position))))
-    (and (not (equal "HTTP/1.1 200 OK" fl)) fl)))
+    (and (not (or (equal "HTTP/1.1 200 OK" fl) 
+                  (equal "HTTP/1.1 201 Created" fl)))
+         fl)))
 
 (defun org-ghi-get-time (time-string)
   "Return parsed time list from timezone string."
