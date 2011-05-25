@@ -441,6 +441,25 @@ result and updates the TODO list."
     (end-of-line)
     (insert "\n")))
 
+(defun org-ghi-make-todo-an-issue ()
+  "Pushes a TODO item as an issue. Should have a property REPO."
+  (interactive)
+  (let ((issue (org-ghi-entry-to-alist))
+        (repo (org-entry-get (point) "REPO")))
+    (org-ghi-replace-issue 
+     (with-current-buffer (github-request 
+                         "POST" 
+                         (format 
+                          "https://api.github.com/repos/%s/issues"
+                          repo)
+                         (let ((json-array-type 'vector)
+                               (json-key-type 'string))
+                           (json-encode issue)))
+       (when (org-ghi-request-status-success-p)
+         (error "ERROR -- %s. Can't Update" 
+                (org-ghi-request-status-success-p)))
+       (org-ghi-get-json-as-list)))))
+
 (defun org-ghi-sync-all (repo)
   "Update all issues, irrespective of status."
   (interactive "MWhich repo? ")

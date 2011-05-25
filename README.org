@@ -31,12 +31,15 @@
 
   You can then work on your TODO and update your Issue from org-mode,
   by using ~org-ghi-update-current-issue~.  
+
+  To create a new issue, Create a new TODO item; The TODO item should
+  have the property ~:REPO:~ set to ~user/repo~.  Now use the function
+  ~org-ghi-make-todo-an-issue~ to create a new issue. 
 * Warning
   The interface is built upon GitHub's API v3 and it seems to be
   pretty fragile, with quite a few problems. Hence, this interface
   is pretty fragile, too...
 * TO-DO
-*** Allow creation of new Issues
 *** Let issues be filed under Milestones
 *** body of Issue (API broken?)
 *** Comments
