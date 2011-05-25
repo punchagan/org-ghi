@@ -267,15 +267,22 @@ result and updates the TODO list."
     (setq j-alist (mapcar 'org-ghi-property-to-key-val props))
     (delete nil j-alist)
     (when (org-ghi-at-issue-p)
-      (setq heading (split-string (substring heading 2 -2) "\\]\\["))
-      (setq title (nth 1 heading))
-      (setq url (nth 0 heading))
+      (with-temp-buffer
+        (save-match-data
+          (insert heading)
+          (if (re-search-forward org-any-link-re nil t)
+              (progn
+                (setq title (match-string-no-properties 4))
+                (setq url (match-string-no-properties 2)))
+            (setq title heading)
+            (setq url ""))))
       (add-to-list 'j-alist (cons "title" title))
       (add-to-list 'j-alist (cons "html_url" url))
       (add-to-list 'j-alist (cons "labels" tags))
       (add-to-list 'j-alist (cons "due_on" due_on))
 ;;      (add-to-list 'j-alist (cons "body" body))
       )
+    (delete nil j-alist)
     j-alist))
 
 
