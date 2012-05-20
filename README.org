@@ -1,5 +1,7 @@
 #+TITLE: org-ghi README
-
+* Dead Project
+  Work on this project has been discontinued.  There's a similar
+  project in [[http://orgmode.org/w/?p=org-sync.git][GSoC 2012]]
 * Overview
   ~org-ghi~ provides a way of importing and syncing with GitHub issues
   from Org-mode. 
